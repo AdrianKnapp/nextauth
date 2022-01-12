@@ -3,14 +3,14 @@ import { Can } from "../components/Can";
 import { AuthContext } from "../context/AuthContext";
 import { setupAPIClient } from "../services/api";
 import { withSSRAuth } from "../utils/withSSRAuth";
+import decode from "jwt-decode";
 
-export default function Dashboard() {
-  const { user } = useContext(AuthContext);
+export default function Metrics() {
 
 
   return (
     <>
-      <h1>Dashboard; {user?.email}</h1>
+      <h1>Metrics</h1>
 
       <Can permissions={['metrics.list']}>
         <div>Métricas</div>
@@ -27,4 +27,7 @@ export const getServerSideProps = withSSRAuth(async (ctx) => {
   return {
     props: {}
   }
+}, {
+  permissions: ['metrics.list'],
+  roles: ['administrator']
 })
